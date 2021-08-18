@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.reversecoder.asyncjob.JavaCoroutine;
+import com.reversecoder.asyncjob.wrapper.JobWrapper;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -18,17 +21,17 @@ public class MainActivity extends AppCompatActivity {
         boolean isOnUiThread = Thread.currentThread() == Looper.getMainLooper().getThread();
         Log.d("CheckThread", "CheckThread>>onCreate>>isOnUiThread: " + isOnUiThread);
 
-//        Crouton crouton = new Crouton();
-//        JobWrapper jobWrapper = crouton.async(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.d("CheckThread", "CheckThread>>onCreate>>jobWrapper>>BG thread: " + Thread.currentThread().getId() + "");
-//                boolean isOnUiThread = Thread.currentThread() == Looper.getMainLooper().getThread();
-//                Log.d("CheckThread", "CheckThread>>onCreate>>jobWrapper>>isOnUiThread: " + isOnUiThread);
-//
-//                ((TextView) findViewById(R.id.tv_text)).setText("Rashed");
-//            }
-//        });
+        JavaCoroutine crouton = new JavaCoroutine();
+        JobWrapper jobWrapper = crouton.async(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("CheckThread", "CheckThread>>onCreate>>jobWrapper>>BG thread: " + Thread.currentThread().getId() + "");
+                boolean isOnUiThread = Thread.currentThread() == Looper.getMainLooper().getThread();
+                Log.d("CheckThread", "CheckThread>>onCreate>>jobWrapper>>isOnUiThread: " + isOnUiThread);
+
+                ((TextView) findViewById(R.id.tv_text)).setText("Rashed");
+            }
+        });
 //        jobWrapper.stop();
     }
 }
